@@ -63,7 +63,6 @@ def SaiMatriz(grafo):
 
 def SaiLista(grafo):
 
-
     nx.write_adjlist(grafo, "SaiLista.csv", comments='', delimiter=';')
 
 #    with open('SaiLista.csv', 'w') as file:
