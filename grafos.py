@@ -7,7 +7,7 @@ matrizAdj = numpy.array(list(reader))
 
 print(matrizAdj)
 
-grafo = nx.Graph()
+grafo = nx.MultiGraph()
 
 # Preenche os vertices do grafo a partir da primeira coluna da matriz de adjacencia
 for k in range(1, len(matrizAdj)):
@@ -20,3 +20,4 @@ for i in range(1, len(matrizAdj)):
         if matrizAdj[i][j] == '1':
             print(i, j)
             grafo.add_edge(matrizAdj[i][0], matrizAdj[0][j])
+print(grafo.adj)
