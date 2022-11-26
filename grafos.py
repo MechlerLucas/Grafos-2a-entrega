@@ -28,25 +28,25 @@ def EntMatriz():
 def EntLista():
 
     reader = csv.reader(open("grafoListaAdj.csv"), delimiter=";")
-    listaAdJ = numpy.array(list(reader))
+    listaAdJ = numpy.array(list(reader),dtype="object")
 
     print(listaAdJ)
 
     grafo = nx.DiGraph()
 
     # Preenche os vertices do grafo a partir da lista de arestas
-    for k in range(0, (listaAdJ)):
-        grafo.add_node(listaAdJ[k][0])
+    for k in range(0, len(listaAdJ)):
+        for l in range(0, len(listaAdJ[k])):
+            grafo.add_node(listaAdJ[k][l])
+            print(listaAdJ[k][l])
 
     # Preenche as arestas do grafo a partir da lista de arestas
     for i in range(0, len(listaAdJ)):
-                print(listaAdJ[i][0], listaAdJ[i][1])
-                grafo.add_edge(listaAdJ[i][0], listaAdJ[i][1])
+        for j in range(1, len(listaAdJ[i])):
+            print(listaAdJ[i][0], listaAdJ[i][j])
+            grafo.add_edge(listaAdJ[i][0], listaAdJ[i][j])
     print(grafo.adj)
 
     return grafo
 
-
-
-
-graf = EntEdgeList()
+graf = EntLista()
