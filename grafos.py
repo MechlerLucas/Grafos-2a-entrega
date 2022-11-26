@@ -2,8 +2,14 @@ import csv
 import numpy
 import networkx as nx
 
-reader = csv.reader(open("grafo.csv"), delimiter=";")
-matrizAdj = numpy.array(list(reader))
+
+
+
+def Matrix():
+    reader = csv.reader(open("grafo.csv"), delimiter=";")
+    return numpy.array(list(reader))
+
+matrizAdj = Matrix()
 
 print(matrizAdj)
 
@@ -21,3 +27,4 @@ for i in range(0, len(matrizAdj)):
             print(i, j)
             grafo.add_edge(matrizAdj[i][0], matrizAdj[0][j])
 print(grafo.adj)
+
