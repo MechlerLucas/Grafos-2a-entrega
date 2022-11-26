@@ -2,8 +2,8 @@ import csv
 import numpy
 import networkx as nx
 
-def Matrix():
-    reader = csv.reader(open("grafo.csv"), delimiter=";")
+def EntMatriz():
+    reader = csv.reader(open("grafoMatrizAdj.csv"), delimiter=";")
     matrizAdj = numpy.array(list(reader))
 
     print(matrizAdj)
@@ -25,26 +25,28 @@ def Matrix():
 
     return grafo
 
-def EdgeList():
+def EntLista():
 
-    reader = csv.reader(open("grafoEdgeList.csv"), delimiter=";")
-    matrizEdge = numpy.array(list(reader))
+    reader = csv.reader(open("grafoListaAdj.csv"), delimiter=";")
+    listaAdJ = numpy.array(list(reader))
 
-    print(matrizEdge)
+    print(listaAdJ)
 
     grafo = nx.DiGraph()
 
     # Preenche os vertices do grafo a partir da lista de arestas
-    for k in range(0, len(matrizEdge)):
-        grafo.add_node(matrizEdge[k][0])
+    for k in range(0, (listaAdJ)):
+        grafo.add_node(listaAdJ[k][0])
 
-    # Preenche as arestas do grafo a partir da matriz de adjacencia
-    for i in range(0, len(matrizEdge)):
-                print(matrizEdge[i][0], matrizEdge[i][1])
-                grafo.add_edge(matrizEdge[i][0], matrizEdge[i][1])
+    # Preenche as arestas do grafo a partir da lista de arestas
+    for i in range(0, len(listaAdJ)):
+                print(listaAdJ[i][0], listaAdJ[i][1])
+                grafo.add_edge(listaAdJ[i][0], listaAdJ[i][1])
     print(grafo.adj)
 
     return grafo
 
 
-graf = EdgeList()
+
+
+graf = EntEdgeList()
