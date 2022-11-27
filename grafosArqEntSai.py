@@ -62,13 +62,11 @@ def SaiMatriz(grafo):
 
 
 def SaiLista(grafo):
-
-    nx.write_adjlist(grafo, "SaiLista.csv", comments='', delimiter=';')
-
-#    with open('SaiLista.csv', 'w') as file:
-#        for row in grafo:
-#            file.write(';'.join)
-
+    lista = open('SaiLista.csv', 'w', newline='')
+    for line in nx.generate_adjlist(grafo, delimiter = ';'):
+        print(line)
+        lista.write(line)
+        lista.write('\n')
     return None
 
 graf = EntLista()
