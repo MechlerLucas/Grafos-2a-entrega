@@ -55,9 +55,7 @@ def EntLista():
 def SaiMatriz(grafo):
 
     #print(nx.adjacency_matrix(grafo))
-    
     #print(nx.to_dict_of_lists(grafo))
-    #vertices =   #['A','B','C','D','E'] 
 #
     print(nx.attr_matrix(grafo,rc_order=list(grafo.nodes)))
     matrizAdj = nx.attr_matrix(grafo,rc_order=list(grafo.nodes))
