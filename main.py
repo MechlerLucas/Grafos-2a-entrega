@@ -2,10 +2,11 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 import grafosArq
+from grafosArq import *
 
 def Naive(grafo):
 
-    list (nx.bridges(grafos))
+    print(grafo.edges)
     #for i in grafo.number_of_nodes():
 
 
