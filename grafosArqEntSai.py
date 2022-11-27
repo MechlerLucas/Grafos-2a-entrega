@@ -35,22 +35,18 @@ def EntLista():
     reader = csv.reader(open("grafoListaAdj.csv"), delimiter=";")
     listaAdJ = numpy.array(list(reader),dtype="object")
 
-#    print(listaAdJ)
-
     grafo = nx.DiGraph()
 
     # Preenche os vertices do grafo a partir da lista de arestas
     for k in range(0, len(listaAdJ)):
         for l in range(0, len(listaAdJ[k])):
             grafo.add_node(listaAdJ[k][l])
-#            print(listaAdJ[k][l])
 
     # Preenche as arestas do grafo a partir da lista de arestas
     for i in range(0, len(listaAdJ)):
         for j in range(1, len(listaAdJ[i])):
-#            print(listaAdJ[i][0], listaAdJ[i][j])
             grafo.add_edge(listaAdJ[i][0], listaAdJ[i][j])
-#    print(grafo.adj)
+    print("\nVetor de adjacencia\n",grafo.adj)
 
     return grafo
 
@@ -58,16 +54,35 @@ def EntLista():
 
 def SaiMatriz(grafo):
 
+    #print(nx.adjacency_matrix(grafo))
+    
+    #print(nx.to_dict_of_lists(grafo))
+
+#
+    print(nx.attr_matrix(grafo,rc_order=['A','B','C','D','E']))
+    matrizAdj = nx.attr_matrix(grafo,rc_order=['A','B','C','D','E'])
+#    matriz = open('SaiMatriz.csv', 'w', newline='')    
+    
+#    for line in matrizAdj:
+#        matriz.write(line)
+#        matriz.write('\n')
+    print (matrizAdj)
+
     return None
 
 
 def SaiLista(grafo):
+    print("\nLista de adjacencia")
     lista = open('SaiLista.csv', 'w', newline='')
     for line in nx.generate_adjlist(grafo, delimiter = ';'):
         print(line)
         lista.write(line)
         lista.write('\n')
+    
     return None
 
-graf = EntLista()
-SaiLista(graf)
+#graf = EntLista()
+#SaiLista(graf)
+
+graf = EntMatriz()
+SaiMatriz(graf)
