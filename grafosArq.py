@@ -43,6 +43,7 @@ def EntLista():
 
     return grafo
 
+#Função de saida por arquivo de matriz de adjacencia
 def SaiMatriz(grafo):
 
     warnings.filterwarnings("ignore")
@@ -53,11 +54,10 @@ def SaiMatriz(grafo):
 
     return None
 
-
+#Função de saida por arquivo de lista de adjacencia
 def SaiLista(grafo):
     print("\nLista de adjacencia")
     lista = open('SaiLista.csv', 'w', newline='')
-
     for line in nx.generate_adjlist(grafo, delimiter = ';'):
         print(line)
         lista.write(line)
