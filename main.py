@@ -7,7 +7,7 @@ from grafosArq import *
 
 def Naive(grafo):
 
-    print(grafo.edges)
+    print(grafo.nodes())
     #for i in grafo.number_of_nodes():
 
 

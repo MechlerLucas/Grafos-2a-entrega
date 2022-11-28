@@ -2,30 +2,23 @@ import csv
 import numpy as np
 import networkx as nx
 import warnings
-
-####################################Entrada########################################
+import pandas as pd
 
 #Função de entrada por arquivo de matriz de adjacencia
 def EntMatriz():
     reader = csv.reader(open("grafoMatrizAdj.csv"), delimiter=";")
     matrizAdj = np.array(list(reader))
-
-#    print(matrizAdj)
-
     grafo = nx.DiGraph()
 
     # Preenche os vertices do grafo a partir da primeira coluna da matriz de adjacencia
     for k in range(1, len(matrizAdj)):
         grafo.add_node(matrizAdj[k][0])
 
-
     # Preenche as arestas do grafo a partir da matriz de adjacencia
     for i in range(0, len(matrizAdj)):
         for j in range(0, len(matrizAdj)):
             if matrizAdj[i][j] == '1':
-#                print(i, j)
                 grafo.add_edge(matrizAdj[i][0], matrizAdj[0][j])
-#    print(grafo.adj)
 
     return grafo
 
@@ -33,7 +26,7 @@ def EntMatriz():
 def EntLista():
 
     reader = csv.reader(open("grafoListaAdj.csv"), delimiter=";")
-    listaAdJ = numpy.array(list(reader),dtype="object")
+    listaAdJ = np.array(list(reader),dtype="object")
 
     grafo = nx.DiGraph()
 
@@ -50,26 +43,13 @@ def EntLista():
 
     return grafo
 
-####################################Saida##########################################
-
 def SaiMatriz(grafo):
 
-    #print(nx.adjacency_matrix(grafo))
-    #print(nx.to_dict_of_lists(grafo))
-    
     warnings.filterwarnings("ignore")
     matrizAdj = nx.adjacency_matrix(grafo).toarray()
     print (matrizAdj)
-
-    matrizAdj = np.array2string(matrizAdj, separator= ';')
-    #matrizAdj.astype(str)
-    print (matrizAdj)
-    #print(nx.attr_matrix(grafo,rc_order=list(grafo.nodes)))
-    # = nx.attr_matrix(grafo,rc_order=list(grafo.nodes))
-    matriz = open('SaiMatriz.csv', 'w', newline='')    
-    for line in matrizAdj:
-        matriz.write(line)
-    print (matrizAdj)
+    matriz = pd.DataFrame(matrizAdj)
+    matriz.to_csv('SaiMatriz.csv', sep=';')
 
     return None
 
