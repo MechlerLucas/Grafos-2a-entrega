@@ -1,14 +1,14 @@
 import csv
-import numpy
+import numpy as np
 import networkx as nx
-
+import warnings
 
 ####################################Entrada########################################
 
 #Função de entrada por arquivo de matriz de adjacencia
 def EntMatriz():
     reader = csv.reader(open("grafoMatrizAdj.csv"), delimiter=";")
-    matrizAdj = numpy.array(list(reader))
+    matrizAdj = np.array(list(reader))
 
 #    print(matrizAdj)
 
@@ -56,14 +56,19 @@ def SaiMatriz(grafo):
 
     #print(nx.adjacency_matrix(grafo))
     #print(nx.to_dict_of_lists(grafo))
-#
-    print(nx.attr_matrix(grafo,rc_order=list(grafo.nodes)))
-    matrizAdj = nx.attr_matrix(grafo,rc_order=list(grafo.nodes))
-#    matriz = open('SaiMatriz.csv', 'w', newline='')    
     
-#    for line in matrizAdj:
-#        matriz.write(line)
-#        matriz.write('\n')
+    warnings.filterwarnings("ignore")
+    matrizAdj = nx.adjacency_matrix(grafo).toarray()
+    print (matrizAdj)
+
+    matrizAdj = np.array2string(matrizAdj, separator= ';')
+    #matrizAdj.astype(str)
+    print (matrizAdj)
+    #print(nx.attr_matrix(grafo,rc_order=list(grafo.nodes)))
+    # = nx.attr_matrix(grafo,rc_order=list(grafo.nodes))
+    matriz = open('SaiMatriz.csv', 'w', newline='')    
+    for line in matrizAdj:
+        matriz.write(line)
     print (matrizAdj)
 
     return None
@@ -72,6 +77,7 @@ def SaiMatriz(grafo):
 def SaiLista(grafo):
     print("\nLista de adjacencia")
     lista = open('SaiLista.csv', 'w', newline='')
+
     for line in nx.generate_adjlist(grafo, delimiter = ';'):
         print(line)
         lista.write(line)
