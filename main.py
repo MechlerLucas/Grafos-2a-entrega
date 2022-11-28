@@ -7,6 +7,7 @@ from grafosArq import *
 def Naive(grafo):
 
     print(grafo.nodes())
+    print(list(nx.bridges(grafo)))
     #for i in grafo.number_of_nodes():
 
 
@@ -18,4 +19,4 @@ def Tarjan(grafo):
     return None
 
 
-Naive(EntMatriz())
+Naive(EntLista())

@@ -48,25 +48,22 @@ def SaiMatriz(grafo):
 
     warnings.filterwarnings("ignore")
     matrizAdj = nx.adjacency_matrix(grafo).toarray()
-    print (matrizAdj)
     matriz = pd.DataFrame(matrizAdj, columns= list(grafo.nodes()), index = (grafo.nodes()))
     matriz.to_csv('SaiMatriz.csv', sep=';')
-
     return None
 
 #Função de saida por arquivo de lista de adjacencia
 def SaiLista(grafo):
+
     print("\nLista de adjacencia")
     lista = open('SaiLista.csv', 'w', newline='')
     for line in nx.generate_adjlist(grafo, delimiter = ';'):
-        print(line)
         lista.write(line)
         lista.write('\n')
-    
     return None
 
-#graf = EntLista()
-#SaiLista(graf)
+graf = EntLista()
+SaiLista(graf)
 
-graf = EntMatriz()
-SaiMatriz(graf)
+#graf = EntMatriz()
+#SaiMatriz(graf)
