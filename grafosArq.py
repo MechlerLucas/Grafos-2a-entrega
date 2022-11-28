@@ -49,7 +49,7 @@ def SaiMatriz(grafo):
     warnings.filterwarnings("ignore")
     matrizAdj = nx.adjacency_matrix(grafo).toarray()
     print (matrizAdj)
-    matriz = pd.DataFrame(matrizAdj)
+    matriz = pd.DataFrame(matrizAdj, columns= list(grafo.nodes()), index = (grafo.nodes()))
     matriz.to_csv('SaiMatriz.csv', sep=';')
 
     return None
