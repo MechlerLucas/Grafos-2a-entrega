@@ -39,7 +39,6 @@ def EntLista():
     for i in range(0, len(listaAdJ)):
         for j in range(1, len(listaAdJ[i])):
             grafo.add_edge(listaAdJ[i][0], listaAdJ[i][j])
-    print("\nVetor de adjacencia\n",grafo.adj)
 
     return grafo
 
@@ -55,15 +54,8 @@ def SaiMatriz(grafo):
 #Função de saida por arquivo de lista de adjacencia
 def SaiLista(grafo):
 
-    print("\nLista de adjacencia")
     lista = open('SaiLista.csv', 'w', newline='')
     for line in nx.generate_adjlist(grafo, delimiter = ';'):
         lista.write(line)
         lista.write('\n')
     return None
-
-graf = EntLista()
-SaiLista(graf)
-
-#graf = EntMatriz()
-#SaiMatriz(graf)
