@@ -1,5 +1,4 @@
 import igraph as ig
-import matplotlib.pyplot as plt
 
 #import de grafo em arquivo GML para objeto grafo
 def ImportaArq():
