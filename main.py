@@ -3,31 +3,38 @@ import pandas as pd
 from grafoGML import*
 import igraph as ig
 
+def Info(grafo):
+    print("Pontes:        ",grafo.bridges())
+    print("Componentes:   ",len(grafo.clusters()))
+    print("Lista vertices:",grafo.vs.indices)
+    print("Lista arestas: ",grafo.es.indices)
 
 def Naive(grafo):
 
     aux = grafo
-    #print(grafo.connected_components(mode='weak'))
-    print("Pontes:        ",grafo.bridges())
-    print("Componentes:   ",len(aux.clusters()))
-    print("Lista vertices:",grafo.vs.indices)
-    print("Lista arestas: ",grafo.es.indices)
-    print("Lista conexões:",grafo.es.tuples)
-    vertex_indices = range(grafo.ecount())
+    Info(grafo)
+    listaArestas = []
     for e in grafo.es:
-        print(e.tuple)
-    arestas = grafo.es.indices
+        listaArestas.append(e.tuple)
+    
     inicial_componentes = grafo.clusters()
     print("---------------------------")
-    for i in range (grafo.ecount()):
-        #print(arestas[i])
-        #aux.delete_edges(arestas[i])
-        print(aux.es.indices)
-        print(vertex_indices[i])
-#        if (len(aux.clusters()) < type(int(inicial_componentes))):
-#            print(arestas[i], "é uma ponte")
-#        else:
-#            aux = grafo
+    print(*listaArestas, sep = "; ")
+    print("---------------------------")
+    
+    i = 0
+    for j in listaArestas:
+        print("Deletando: ",j)
+        aux.delete_edges(j)
+        print("Qtd nova:    ",len(aux.clusters()))
+        print("Qtd inicial: ",len(inicial_componentes))
+        if (len(aux.clusters()) > len(inicial_componentes)):
+            print(listaArestas[i], "é uma ponte")
+            print("...")
+        else:
+            print("...")
+        aux = grafo.copy()
+        i += 1
     
 
     return None
