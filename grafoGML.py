@@ -1,7 +1,9 @@
 import igraph as ig
+import warnings
 
 #import de grafo em arquivo GML para objeto grafo
 def ImportaArq():
+    warnings.filterwarnings("ignore")
     grafo = ig.Graph()
     grafo = ig.load("entrada.gml")
     
