@@ -3,6 +3,7 @@ import pandas as pd
 from grafoGML import*
 import igraph as ig
 import random
+import time
 
 #Exibe informações do grafo
 def Info(grafo):
@@ -18,7 +19,7 @@ def Info(grafo):
 
 #Metodo de Naive
 def Naive(grafo):
-
+    inicio = time.time()
     aux = grafo
     Info(grafo)
 
@@ -41,13 +42,19 @@ def Naive(grafo):
         aux = grafo.copy()
         i += 1
     
+    fim = time.time()
 
+    print("%10.3f segundos gastos"%(fim-inicio))
     return None
 
 #Metodo de Tarjan
 def Tarjan(grafo):
+    inicio = time.time()
 
 
+    fim = time.time()
+
+    print("%10.3f segundos gastos"%(fim-inicio))
     return None
 
 #Criador aleatorio de grafos
@@ -56,5 +63,5 @@ def Aleatorio(nodos):
     grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
     return grafoRand
 
-Info(Aleatorio(10))
-#Naive(ImportaArq('entrada.gml'))
+#Info(Aleatorio(10))
+Naive(ImportaArq('entrada.gml'))
