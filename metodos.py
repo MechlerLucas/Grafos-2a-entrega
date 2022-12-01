@@ -4,11 +4,13 @@ from grafoGML import*
 import igraph as ig
 import random
 import time
+import warnings
 
 #Exibe informações do grafo
 def Info(grafo):
+    warnings.filterwarnings("ignore")
     print("Pontes:        ",grafo.bridges())
-    print("Componentes:   ",len(grafo.connected_components()))
+    print("Componentes:   ",len(grafo.clusters()))
     print("Lista vertices:",grafo.vs.indices)
     listaArestas = []
     for e in grafo.es:
@@ -63,5 +65,5 @@ def Aleatorio(nodos):
     grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
     return grafoRand
 
-#Info(Aleatorio(10))
 Naive(ImportaArq('entrada.gml'))
+#Info(Aleatorio(1000))
