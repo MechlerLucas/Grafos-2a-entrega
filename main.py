@@ -2,26 +2,32 @@ import numpy as np
 import pandas as pd
 from grafoGML import*
 import igraph as ig
+import random
 
+#Exibe informações do grafo
 def Info(grafo):
     print("Pontes:        ",grafo.bridges())
-    print("Componentes:   ",len(grafo.clusters()))
+    print("Componentes:   ",len(grafo.connected_components()))
     print("Lista vertices:",grafo.vs.indices)
-    print("Lista arestas: ",grafo.es.indices)
+    listaArestas = []
+    for e in grafo.es:
+        listaArestas.append(e.tuple)
+    print("---------------------------")
+    print(*listaArestas, sep = "\n")
+    print("---------------------------")
+    #print("Lista arestas: ",grafo.es.indices)
 
+#Metodo de Naive
 def Naive(grafo):
 
     aux = grafo
     Info(grafo)
+
     listaArestas = []
     for e in grafo.es:
         listaArestas.append(e.tuple)
-    
+
     inicial_componentes = grafo.clusters()
-    print("---------------------------")
-    print(*listaArestas, sep = "; ")
-    print("---------------------------")
-    
     i = 0
     for j in listaArestas:
         print("Deletando: ",j)
@@ -39,10 +45,17 @@ def Naive(grafo):
 
     return None
 
+#Metodo de Tarjan
 def Tarjan(grafo):
 
 
     return None
 
+#Criador aleatorio de grafos
+def Aleatorio(nodos):
+    random.seed(0)
+    grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
+    return grafoRand
 
-Naive(ImportaArq('entrada.gml'))
+Info(Aleatorio(10))
+#Naive(ImportaArq('entrada.gml'))
