@@ -15,7 +15,6 @@ def Info(grafo):
     print("---------------------------")
     print(*listaArestas, sep = "\n")
     print("---------------------------")
-    #print("Lista arestas: ",grafo.es.indices)
 
 #Metodo de Naive
 def Naive(grafo):
