@@ -52,7 +52,7 @@ def Tarjan(grafo):
 
 #Criador aleatorio de grafos
 def Aleatorio(nodos):
-    random.seed(0)
+    random.seed()
     grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
     return grafoRand
 
