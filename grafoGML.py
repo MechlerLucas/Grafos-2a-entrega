@@ -2,10 +2,10 @@ import igraph as ig
 import warnings
 
 #import de grafo em arquivo GML para objeto grafo
-def ImportaArq():
+def ImportaArq(nomeArq):
     warnings.filterwarnings("ignore")
     grafo = ig.Graph()
-    grafo = ig.load("entrada.gml")
+    grafo = ig.load(nomeArq)
     
     print("Grafo importado com sucesso")
     print(grafo.vcount(), "vertices")

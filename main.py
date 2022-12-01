@@ -45,4 +45,4 @@ def Tarjan(grafo):
     return None
 
 
-Naive(ImportaArq())
+Naive(ImportaArq('entrada.gml'))
