@@ -57,34 +57,47 @@ def Fleury(grafo):
     print(*listaAdjacentes, sep = "\n")
     graus = grafo.degree()
     print(graus)
-    listaArestas = []
-    for e in grafo.es:
-        listaArestas.append(e.tuple)
-
     for i in graus:
         if graus[i] % 2 or graus[i] == 1:
             print("Grafo sem caminho euleriano")
             quit()
     
-    i=0
+    listaVertices = []
+    for e in grafo.vs:
+        listaVertices.append(e.tuple)
+
+    listaArestas = []
+    for e in grafo.es:
+        listaArestas.append(e.tuple)
+
+    #--------------------------------------------------#
+    i = 0
     Tour = []
+
     aux = grafo.copy()
-    listaArestasAux = listaArestas
-    v0 = listaArestasAux[0]
-    vi = v0
-    adjacentes = aux.neighbors(v0)
+    v0 = listaVertices[0]
     Tour.append[v0]
-    while len(list(set(Tour).intersection(adjacentes))) != len(adjacentes):
-        
-        
-        if  
-
-        else
-
-        aux.delete_edges()        
     
-        Tour.append(vi)
-    
+    while not bool(listaArestas):
+        vi = Tour[i]
+
+        if len(aux.neighbors(vi)) > 1:
+            for j in aux.neighbors(vi):
+                if NaiveAresta(aux, (vi, j)):
+                    arestaRetirada = (vi, j)
+                    J = j
+                    break
+        else:
+            J = aux.neighbors(vi)
+            arestaRetirada = (vi, J)
+
+        aux.delete_edges(arestaRetirada)
+        Tour.append(arestaRetirada)
+        vj = J
+        Tour.append(vj)
+
+        aresta = "("+vi+", "+vj+")"
+        listaArestas.remove(aresta)
     return Tour
 
 
