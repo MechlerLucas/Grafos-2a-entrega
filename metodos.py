@@ -59,11 +59,38 @@ def Tarjan(grafo):
     print("%10.3f segundos gastos"%(fim-inicio))
     return None
 
+#Metodo de Fleury
+def Fleury(grafo):
+    Info(grafo)
+    print(grafo.get_adjlist(mode = "all"))
+    graus = grafo.degree()
+    print(graus)
+
+    for i in graus:
+        if graus[i] % 2 or graus[i] == 1:
+            print("Grafo sem caminho euleriano")
+            quit()
+        else:
+            print()
+    
+
+    
+
+
+
+
+
+    return None
+
+
 #Criador aleatorio de grafos
 def Aleatorio(nodos):
     random.seed()
     grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
     return grafoRand
 
-Naive(ImportaArq('entrada.gml'))
+Info(ImportaArq('entrada.gexf'))
+
+#Fleury(ImportaArq('entrada.gml'))
+#Naive(ImportaArq('entrada.gml'))
 #Info(Aleatorio(1000))
