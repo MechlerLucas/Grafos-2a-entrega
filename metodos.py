@@ -19,35 +19,26 @@ def Info(grafo):
     print(*listaArestas, sep = "\n")
     print("---------------------------")
 
-#Metodo de Naive
-def Naive(grafo):
-    inicio = time.time()
-    aux = grafo
+#Metodo de Naive para aresta separada
+def NaiveAresta(grafo, aresta):
+    
+    aux = grafo.copy()
+
     Info(grafo)
 
-    listaArestas = []
-    for e in grafo.es:
-        listaArestas.append(e.tuple)
+    print("Deletando: ",aresta)
+    aux.delete_edges(aresta)
 
-    inicial_componentes = grafo.clusters()
-    i = 0
-    for j in listaArestas:
-        print("Deletando: ",j)
-        aux.delete_edges(j)
-        print("Qtd nova:    ",len(aux.clusters()))
-        print("Qtd inicial: ",len(inicial_componentes))
-        if (len(aux.clusters()) > len(inicial_componentes)):
-            print(listaArestas[i], "é uma ponte")
-            print("...")
-        else:
-            print("...")
-        aux = grafo.copy()
-        i += 1
-    
-    fim = time.time()
+    print("Qtd nova:    ",len(aux.clusters()))
+    print("Qtd inicial: ",len(grafo.clusters()))
 
-    print("%10.3f segundos gastos"%(fim-inicio))
-    return None
+    if (len(aux.clusters()) > len(grafo.clusters())):
+        print(aresta, "é uma ponte")
+        return True
+    else:
+        return False
+
+
 
 #Metodo de Tarjan
 def Tarjan(grafo):
@@ -62,16 +53,20 @@ def Tarjan(grafo):
 #Metodo de Fleury
 def Fleury(grafo):
     Info(grafo)
-    print(grafo.get_adjlist(mode = "all"))
+    adjacentes = grafo.get_adjlist(mode = "all")
+    print(*adjacentes, sep = "\n")
     graus = grafo.degree()
     print(graus)
+    listaArestas = []
+    for e in grafo.es:
+        listaArestas.append(e.tuple)
 
     for i in graus:
         if graus[i] % 2 or graus[i] == 1:
             print("Grafo sem caminho euleriano")
             quit()
-        else:
-            print()
+    
+
     
 
     
@@ -89,7 +84,9 @@ def Aleatorio(nodos):
     grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
     return grafoRand
 
-Info(ImportaArq('entrada.gexf'))
+Info(ImportaArq('entrada.gml'))
+
+NaiveAresta(ImportaArq('entrada.gml'),(4, 5))
 
 #Fleury(ImportaArq('entrada.gml'))
 #Naive(ImportaArq('entrada.gml'))
