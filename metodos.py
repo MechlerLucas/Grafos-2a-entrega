@@ -53,8 +53,8 @@ def Tarjan(grafo):
 #Metodo de Fleury
 def Fleury(grafo):
     Info(grafo)
-    adjacentes = grafo.get_adjlist(mode = "all")
-    print(*adjacentes, sep = "\n")
+    listaAdjacentes = grafo.get_adjlist(mode = "all")
+    print(*listaAdjacentes, sep = "\n")
     graus = grafo.degree()
     print(graus)
     listaArestas = []
@@ -66,16 +66,26 @@ def Fleury(grafo):
             print("Grafo sem caminho euleriano")
             quit()
     
+    i=0
+    Tour = []
+    aux = grafo.copy()
+    listaArestasAux = listaArestas
+    v0 = listaArestasAux[0]
+    vi = v0
+    adjacentes = aux.neighbors(v0)
+    Tour.append[v0]
+    while len(list(set(Tour).intersection(adjacentes))) != len(adjacentes):
+        
+        
+        if  
 
+        else
+
+        aux.delete_edges()        
     
-
+        Tour.append(vi)
     
-
-
-
-
-
-    return None
+    return Tour
 
 
 #Criador aleatorio de grafos
