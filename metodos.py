@@ -8,6 +8,7 @@ import warnings
 
 #Exibe informações do grafo
 def Info(grafo):
+    print("\n\n------------Infos------------")
     warnings.filterwarnings("ignore")
     print("Pontes:        ",grafo.bridges())
     print("Componentes:   ",len(grafo.clusters()))
@@ -18,15 +19,14 @@ def Info(grafo):
         listaArestas.append(e.tuple)
     print("---------------------------")
     print("Arestas:", *listaArestas, sep = "\n")
+    graus = grafo.degree()
+    print("Graus: ",graus)
     print("---------------------------")
-
+    print("------------Infos------------\n\n")
 #Metodo de Naive para aresta separada
 def NaiveAresta(grafo, aresta):
-    
+    print("\n\n------------Naive------------")
     aux = grafo.copy()
-
-    Info(grafo)
-
     print("Deletando: ",aresta)
     aux.delete_edges(aresta)
 
@@ -35,8 +35,11 @@ def NaiveAresta(grafo, aresta):
 
     if (len(aux.clusters()) > len(grafo.clusters())):
         print(aresta, "é uma ponte")
+        print("------------Naive------------")
         return True
     else:
+        print(aresta, " não é uma ponte")
+        print("------------Naive------------\n\n")
         return False
 
 
@@ -53,63 +56,74 @@ def Tarjan(grafo):
 
 #Metodo de Fleury
 def Fleury(grafo):
-    Info(grafo)
-    print("Informações da função de Fleury")
-    listaAdjacentes = grafo.get_adjlist(mode = "all")
-    print(*listaAdjacentes, sep = ", ")
+    #Info(grafo)
+    print("\n\n------------Fleury-----------")
+    #--------------------------------------------------#
+    #Verifica se o grafo é eulericano
     graus = grafo.degree()
-    print("Graus: ",graus)
-    print("---------------------------")
     for i in graus:
         if graus[i] % 2 or graus[i] == 1:
             print("Grafo sem caminho euleriano")
             quit()
     print("Grafo euleriano")
+    listaVertices = grafo.vs.indices
 
-    listaVertices = []
-    for e in grafo.vs:
-        listaVertices.append(e)
-    print("Vertices ",*listaVertices, sep = ", ")
-
+    #Pega lista de arestas e exibe
     listaArestas = []
     for e in grafo.es:
         listaArestas.append(e.tuple)
-    print("Arestas ",*listaArestas, sep = ", ")
-
     #--------------------------------------------------#
-    i = 0
+    i = len(listaArestas)-1
     Tour = []
-
-    aux = grafo.copy()
-    v0 = listaVertices(0)
-    Tour.append(v0)
     
+    aux = grafo.copy()
+    v0 = listaVertices[random.randint(0,len(listaVertices)-1)]
+    Tour.append(v0)
+    vj = v0
     while bool(listaArestas):
 
-        print(i, " Tour ", *Tour, sep=",")
-        indice = len(Tour) - 1
-        vi = Tour(indice)
+        print("Loop ",i)
+        print("Tour =",*Tour, sep="")
+        
+        vi = vj
+        J = 0
 
-        if len(aux.neighbors(vi)) > 1:
-            for j in aux.neighbors(vi):
-                if not NaiveAresta(aux, (vi, j)):
-                    arestaRetirada = (vi, j)
-                    J = j
+        print("vi =",vi )
+        print("Vertice selecionado: ", vi)
+        qtdn = aux.neighbors(vi,mode='all')
+        print("Quantidade neib = ",len(qtdn))
+
+        if  len(qtdn) > 1:
+            print("\n\nAdjacentes:", *aux.neighbors(vi, mode='all'), sep=';')
+            for k in qtdn:
+
+                if not NaiveAresta(aux, (vi, k)):
+                    arestaRetirada = (vi, k)
+                    J = k
                     break
+
         else:
-            J = aux.neighbors(vi)
+            J = qtdn[0]
             arestaRetirada = (vi, J)
 
+        print("Deletando: ",arestaRetirada)
+
         aux.delete_edges(arestaRetirada)
+        
+        listaArestasi = []
+        for e in aux.es:
+            listaArestasi.append(e.tuple)
+        print("---------------------------")
+        print("Arestas:", *listaArestasi, sep = "; ")
         Tour.append(arestaRetirada)
         vj = J
         Tour.append(vj)
+        print("VJ = ",vj,"\n---")
 
-        i += 1
-        aresta = "("+vi+", "+vj+")"
-        listaArestas.remove(aresta)
+        listaArestas.pop(i)
+        i -= 1
+    print("------------Fleury-----------\n\n")
     return Tour
-
 
 #Criador aleatorio de grafos
 def Aleatorio(nodos):
@@ -118,7 +132,7 @@ def Aleatorio(nodos):
     return grafoRand
 
 
-print("Tour", *Fleury(ImportaArq('fleury.gml')), sep = ", ")
+print("Tour de saida", *Fleury(ImportaArq('fleury.gml')), sep = ", ")
 
 
 #Info(ImportaArq('entrada.gml'))
