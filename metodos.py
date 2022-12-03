@@ -34,12 +34,32 @@ def NaiveAresta(grafo, aresta):
         return False
 
 #Metodo de Tarjan
-def Tarjan(grafo):
-    inicio = time.time()
+def Tarjan(grafo, aresta):
+    inicio = time.time() #Inicio da variável de tempo, para comparação
+    aux = grafo.copy() #Faz uma copia do grafo para evitar erros
 
+    pilha = []
+    i = 0 #Variável "i" que será utilizada para a inicialização
+    for e in aux.es:
+        if i == 0: #Na primeira "passada" do for, para a inicialização do primeiro vértice, raiz da busca
+            aux.delete_edges(e) #deleta o vértice do grafo aux
+        for x in aux.vs:
+            testa = len(aux.neighbors(x)) #olha quantos vizinhos o vértice tem
+            if testa > 1: #caso tenha mais de um, deleta a aresta atual
+                aux.delete_edges(e)                                                                    
+        i = i + 1
+    for e in aux.es:
+        pilha.append(e.tuple) #faz o empilhamento
 
     fim = time.time()
-
+    if(pilha[len(pilha)-1] == aresta):
+        print(aresta, "é uma ponte")
+        print("%10.3f segundos gastos"%(fim-inicio))
+        return True
+    else:
+        print(aresta, "NAO é uma ponte")
+        print("%10.3f segundos gastos"%(fim-inicio))
+        return False
     print("%10.3f segundos gastos"%(fim-inicio))
     return None
 
