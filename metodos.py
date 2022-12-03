@@ -62,8 +62,8 @@ def Fleury(grafo):
     #Verifica se o grafo é eulericano
     graus = grafo.degree()
     for i in graus:
-        if graus[i] % 2 or graus[i] == 1:
-            print("Grafo sem caminho euleriano")
+        if graus[i] % 2 or graus[i] == 1 or len(grafo.clusters()) > 1:
+            print("Grafo sem caminho euleriano\nGrafo com graus impares ou não conexo")
             quit()
     print("Grafo euleriano")
     listaVertices = grafo.vs.indices

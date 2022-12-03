@@ -5,10 +5,6 @@ graph
   directed 0
   node
   [
-    id 0
-  ]
-  node
-  [
     id 1
   ]
   node
@@ -23,10 +19,17 @@ graph
   [
     id 4
   ]
-  edge
+  node
   [
-    source 0
-    target 1
+    id 5
+  ]
+  node
+  [
+    id 6
+  ]
+  node
+  [
+    id 7
   ]
   edge
   [
@@ -35,8 +38,23 @@ graph
   ]
   edge
   [
+    source 1
+    target 3
+  ]
+  edge
+  [
     source 2
     target 3
+  ]
+  edge
+  [
+    source 2
+    target 4
+  ]
+  edge
+  [
+    source 2
+    target 5
   ]
   edge
   [
@@ -45,7 +63,33 @@ graph
   ]
   edge
   [
+    source 3
+    target 6
+  ]
+  edge
+  [
     source 4
-    target 0
+    target 5
+  ]
+  edge
+  [
+    source 4
+    target 6
+  ]
+  edge
+  [
+    source 5
+    target 6
+  ]
+  edge
+  [
+    source 5
+    target 7
+  ]
+  edge
+  [
+    source 6
+    target 7
   ]
 ]
+
