@@ -23,8 +23,9 @@ def Info(grafo):
     print("Graus: ",graus)
     print("---------------------------")
     print("------------Infos------------\n\n")
+
 #Metodo de Naive para aresta separada
-def NaiveAresta(grafo, aresta):
+def Naive(grafo, aresta):
     aux = grafo.copy()
     aux.delete_edges(aresta)
 
@@ -54,18 +55,16 @@ def Tarjan(grafo, aresta):
     fim = time.time()
     if(len(pilha)>0):
         if(pilha[len(pilha)-1] == aresta):
-            print(aresta, "e uma ponte")
             #print("%10.3f segundos gastos"%(fim-inicio))
             return True
         else:
-            print(aresta, "NAO e uma ponte")
             #print("%10.3f segundos gastos"%(fim-inicio))
             return False
     #print("%10.3f segundos gastos"%(fim-inicio))
     return None
 
 #Metodo de Fleury
-def Fleury(grafo):
+def Fleury(grafo, op):
     Info(grafo)
     #--------------------------------------------------#
     #Verifica se o grafo é eulericano
@@ -81,6 +80,11 @@ def Fleury(grafo):
     listaArestas = []
     for e in grafo.es:
         listaArestas.append(e.tuple)
+
+    if op == 0:
+        print("Identificando ponstes por Tarjan")
+    if op == 1:
+        print("Identificando pontes por Naive")
     #--------------------------------------------------#
     i = len(listaArestas)-1
     Tour = []
@@ -98,7 +102,12 @@ def Fleury(grafo):
         if  len(qtdn) > 1:
             for k in qtdn:
 
-                if not NaiveAresta(aux, (vi, k)):
+                if not Tarjan(aux, (vi, k)) and  op == 0:
+                    arestaRetirada = (vi, k)
+                    J = k
+                    break
+
+                if not Naive(aux, (vi, k)) and op == 1:
                     arestaRetirada = (vi, k)
                     J = k
                     break
@@ -128,7 +137,7 @@ def Aleatorio(nodos):
 
 
 
-print("Tour Euleriano", *Fleury(ImportaArq('fleury.gml')), sep = ", ")
+
 
 
 ''' Teste ainda não funcional, tendo problemas com mais de 1000 
@@ -166,3 +175,4 @@ def TestaRandomico():
 
 
 
+print("Tour Euleriano", *Fleury(ImportaArq('fleury.gml'),1), sep = ", ")
