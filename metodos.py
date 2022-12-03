@@ -52,15 +52,16 @@ def Tarjan(grafo, aresta):
         pilha.append(e.tuple) #faz o empilhamento
 
     fim = time.time()
-    if(pilha[len(pilha)-1] == aresta):
-        print(aresta, "é uma ponte")
-        print("%10.3f segundos gastos"%(fim-inicio))
-        return True
-    else:
-        print(aresta, "NAO é uma ponte")
-        print("%10.3f segundos gastos"%(fim-inicio))
-        return False
-    print("%10.3f segundos gastos"%(fim-inicio))
+    if(len(pilha)>0):
+        if(pilha[len(pilha)-1] == aresta):
+            print(aresta, "e uma ponte")
+            #print("%10.3f segundos gastos"%(fim-inicio))
+            return True
+        else:
+            print(aresta, "NAO e uma ponte")
+            #print("%10.3f segundos gastos"%(fim-inicio))
+            return False
+    #print("%10.3f segundos gastos"%(fim-inicio))
     return None
 
 #Metodo de Fleury
@@ -125,4 +126,43 @@ def Aleatorio(nodos):
     grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
     return grafoRand
 
+
+
 print("Tour Euleriano", *Fleury(ImportaArq('fleury.gml')), sep = ", ")
+
+
+''' Teste ainda não funcional, tendo problemas com mais de 1000 
+vértices, não sei se a lógica que eu implementei é a mesma esperada
+desde o inicio!!!'''
+def TestaRandomico():
+    print("-------------------------------------------------")
+    aux = Aleatorio(100)
+    listaArestasRandom = []
+    listaArestasAux = []
+    inicio = time.time()
+    i = 0
+    aux1 = False
+    for e in aux.es:
+        listaArestasRandom.append(e.tuple)
+        listaArestasAux.append(False)
+        print(e.tuple)
+
+
+    print("------------------teste-------------------------------")
+    for e in aux.es:
+        if aux1 == False:
+            v1 = random.randrange(0,99)
+            try:
+                if Tarjan(aux,(listaArestasRandom[v1])) == True:
+                    aux1 = True
+            except:
+                v1 = random.randrange(0,99)
+                if Tarjan(aux,(listaArestasRandom[v1])) == True:
+                    aux1 = True
+        i = i+1
+                
+    fim = time.time()
+    print("%10.3f segundos gastos"%(fim-inicio))
+
+
+
