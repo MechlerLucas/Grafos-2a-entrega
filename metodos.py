@@ -36,7 +36,7 @@ def Naive(grafo, aresta):
 
 #Metodo de Tarjan
 def Tarjan(grafo, aresta):
-    inicio = time.time() #Inicio da variável de tempo, para comparação
+    
     aux = grafo.copy() #Faz uma copia do grafo para evitar erros
 
     pilha = []
@@ -52,31 +52,30 @@ def Tarjan(grafo, aresta):
     for e in aux.es:
         pilha.append(e.tuple) #faz o empilhamento
 
-    fim = time.time()
+
     if(len(pilha)>0):
         if(pilha[len(pilha)-1] == aresta):
-            #print("%10.3f segundos gastos"%(fim-inicio))
             return True
         else:
-            #print("%10.3f segundos gastos"%(fim-inicio))
             return False
-    #print("%10.3f segundos gastos"%(fim-inicio))
+    
     return None
 
 #Metodo de Fleury
 def Fleury(grafo, op):
-    Info(grafo)
+
+    #Info(grafo)
     #--------------------------------------------------#
     #Verifica se o grafo é eulericano
     graus = grafo.degree()
     for i in graus:
         if graus[i] % 2 or graus[i] == 1 or len(grafo.clusters()) > 1:
             print("Grafo sem caminho euleriano\nGrafo com graus impares ou não conexo")
-            quit()
+            return 0
     print("Grafo euleriano")
     listaVertices = grafo.vs.indices
 
-    #Pega lista de arestas e exibe
+    #Pega lista de arestas
     listaArestas = []
     for e in grafo.es:
         listaArestas.append(e.tuple)
@@ -86,6 +85,7 @@ def Fleury(grafo, op):
     if op == 1:
         print("Identificando pontes por Naive")
     #--------------------------------------------------#
+    inicio = time.time() #Inicio da variável de tempo, para comparação
     i = len(listaArestas)-1
     Tour = []
     
@@ -98,6 +98,7 @@ def Fleury(grafo, op):
         vi = vj
         J = 0
         qtdn = aux.neighbors(vi,mode='all')
+        arestaRetirada = []
 
         if  len(qtdn) > 1:
             for k in qtdn:
@@ -127,6 +128,9 @@ def Fleury(grafo, op):
 
         listaArestas.pop(i)
         i -= 1
+
+    fim = time.time()
+    print("%10.3f segundos gastos"%(fim-inicio))
     return Tour
 
 #Criador aleatorio de grafos
@@ -136,43 +140,22 @@ def Aleatorio(nodos):
     return grafoRand
 
 
+def TestesRand(tipoPonte):
 
-
-
-
-''' Teste ainda não funcional, tendo problemas com mais de 1000 
-vértices, não sei se a lógica que eu implementei é a mesma esperada
-desde o inicio!!!'''
-def TestaRandomico():
-    print("-------------------------------------------------")
-    aux = Aleatorio(100)
-    listaArestasRandom = []
-    listaArestasAux = []
-    inicio = time.time()
-    i = 0
-    aux1 = False
-    for e in aux.es:
-        listaArestasRandom.append(e.tuple)
-        listaArestasAux.append(False)
-        print(e.tuple)
-
-
-    print("------------------teste-------------------------------")
-    for e in aux.es:
-        if aux1 == False:
-            v1 = random.randrange(0,99)
-            try:
-                if Tarjan(aux,(listaArestasRandom[v1])) == True:
-                    aux1 = True
-            except:
-                v1 = random.randrange(0,99)
-                if Tarjan(aux,(listaArestasRandom[v1])) == True:
-                    aux1 = True
-        i = i+1
-                
-    fim = time.time()
-    print("%10.3f segundos gastos"%(fim-inicio))
-
+    grafo =  Aleatorio(100)
+    Info(grafo)
+    op = 0
+    while op != 1:
+        aux = Fleury(grafo, tipoPonte)
+        if aux == 0:
+            grafo =  Aleatorio(100)
+            op = 0
+        else:
+            print("Tour euleriano", *aux, sep=";")
+            op = 1
 
 
 #print("Tour Euleriano", *Fleury(ImportaArq('fleury.gml'),1), sep = ", ")
+
+
+#TestesRand(1)
