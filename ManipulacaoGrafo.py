@@ -32,8 +32,8 @@ class ManipulacaoGrafo():
         else:
             self.G[v1][v2][0]["label"] = label
     
-    def add_rotulacao_vertice(self,v,weight):
-        self.G[v]["weight"] = weight
+    def add_ponderacao_vertice(self,v,weight):
+        self.G.nodes[v]["weight"] = weight
     
     def verifica_existencia_vertice(self,v):
         return self.G.has_node(v)
@@ -79,11 +79,11 @@ class ManipulacaoGrafo():
             for v in self.G.nodes():
                 print(f'{v} - {list(self.G.neighbors(v))}')
 
-    def exportar_grafo(self):
-        nx.write_gexf(self.G, "saida.gexf")
+    def exportar_grafo(self,nomeArq):
+        nx.write_gml(self.G, nomeArq)
 
     def importar_grafo(self):
-        self.G = nx.read_gexf("test.gexf")
+        self.G = nx.read_gml("entrada.gml", label = 'id')
 
     def draw(self):
         nx.draw_networkx(self.G)

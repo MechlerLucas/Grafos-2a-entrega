@@ -175,4 +175,4 @@ def TestaRandomico():
 
 
 
-print("Tour Euleriano", *Fleury(ImportaArq('fleury.gml'),1), sep = ", ")
+#print("Tour Euleriano", *Fleury(ImportaArq('fleury.gml'),1), sep = ", ")
