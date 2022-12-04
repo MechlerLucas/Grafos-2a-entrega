@@ -49,8 +49,8 @@ def Tarjan(grafo, aresta):
             if testa > 1: #caso tenha mais de um, deleta a aresta atual
                 aux.delete_edges(e)                                                                    
         i = i + 1
-    for e in aux.es:
-        pilha.append(e.tuple) #faz o empilhamento
+    for a in aux.es:
+        pilha.append(a.tuple) #faz o empilhamento
 
 
     if(len(pilha)>0):
@@ -144,9 +144,9 @@ def Aleatorio(nodos):
     return grafoRand
 
 
-def TestesRand(tipoPonte):
+def TestesRand(nodos, tipoPonte):
 
-    grafo =  Aleatorio(10)
+    grafo =  Aleatorio(nodos)
     op = 0
     inicio = time.time() #Inicio da variável de tempo, para comparação
     while op != 1:
@@ -154,7 +154,7 @@ def TestesRand(tipoPonte):
             try:
                 aux = Fleury(grafo, tipoPonte)
                 if aux == 0:
-                    grafo =  Aleatorio(10)
+                    grafo =  Aleatorio(nodos)
                     op = 0
                 else:
                     Info(grafo)
@@ -180,4 +180,4 @@ def TestesRand(tipoPonte):
 #print("Tour Euleriano", *Fleury(ImportaArq('fleuryN.gml'),1), sep = ", ")
 
 
-TestesRand(0)
+TestesRand(10,0)
