@@ -46,7 +46,7 @@ def Tarjan(grafo, aresta):
             aux.delete_edges(e) #deleta o vértice do grafo aux
         for x in aux.vs:
             testa = len(aux.neighbors(x)) #olha quantos vizinhos o vértice tem
-            if testa > 1: #caso tenha mais de um, deleta a aresta atual
+            if testa > 1 and aux.are_connected(aresta[0],aresta[1]): #caso tenha mais de um, deleta a aresta atual
                 aux.delete_edges(e)                                                                    
         i = i + 1
     for a in aux.es:
