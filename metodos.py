@@ -97,36 +97,26 @@ def Fleury(grafo, op):
     while bool(listaArestas):
         
         vi = vj
-        J = 0
         qtdn = aux.neighbors(vi,mode='all')
+        
         arestaRetirada = []
-
         if  len(qtdn) > 1:
             for k in qtdn:
-
                 if op == 0:
-                    if not Tarjan(aux, (vi, k)):
+                    if not Tarjan(aux, (vi, k)) and len(qtdn) > 1:
                         arestaRetirada = (vi, k)
-                        J = k
-                        break
-
+                        vj = k
+                    break
                 if op == 1:
                     if not Naive(aux, (vi, k)):
                         arestaRetirada = (vi, k)
-                        J = k
-                        break
-
+                        vj = k
+                    break
         else:
-            J = qtdn[0]
-            arestaRetirada = (vi, J)
-
+            vj = qtdn[0]
+            arestaRetirada = (vi, vj)
         aux.delete_edges(arestaRetirada)
-        
-        listaArestasi = []
-        for e in aux.es:
-            listaArestasi.append(e.tuple)
         Tour.append(arestaRetirada)
-        vj = J
         Tour.append(vj)
 
         listaArestas.pop(i)
@@ -140,6 +130,7 @@ def Fleury(grafo, op):
 def Aleatorio(nodos):
     random.seed()
     grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.9, directed=False, loops=False)
+    
     return grafoRand
 
 
@@ -167,8 +158,3 @@ def TestesRand(nodos, tipoPonte):
                 print ("%10.3f de busca sem sucesso"%(fim-inicio))
                 op = 0
                 return
-            
-        
-#print("Tour Euleriano", *Fleury(ImportaArq('fleuryN.gml'),1), sep = ", ")
-
-TestesRand(10,0)

@@ -1,3 +1,5 @@
+Creator "igraph version 0.10.2 Sun Dec  4 19:27:52 2022"
+Version 1
 graph
 [
   directed 0
@@ -21,10 +23,6 @@ graph
   [
     id 4
   ]
-  node
-  [
-    id 5
-  ]
   edge
   [
     source 1
@@ -37,28 +35,38 @@ graph
   ]
   edge
   [
-    source 3
-    target 0
-  ]
-  edge
-  [
-    source 4
-    target 0
-  ]
-  edge
-  [
     source 2
     target 1
   ]
   edge
   [
     source 3
+    target 0
+  ]
+  edge
+  [
+    source 3
     target 1
+  ]
+  edge
+  [
+    source 3
+    target 2
+  ]
+  edge
+  [
+    source 4
+    target 0
   ]
   edge
   [
     source 4
     target 1
+  ]
+  edge
+  [
+    source 4
+    target 2
   ]
   edge
   [

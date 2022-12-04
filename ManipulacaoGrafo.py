@@ -83,8 +83,12 @@ class ManipulacaoGrafo():
         nx.write_gml(self.G, nomeArq)
 
     def importar_grafo(self):
-        self.G = nx.read_gml("entrada.gml", label = 'id')
+        self.G = nx.read_gml("saida.gml", label = 'id')
 
     def draw(self):
         nx.draw_networkx(self.G)
         plt.show()
+    
+g = ManipulacaoGrafo(0)
+g.importar_grafo()
+g.draw()
