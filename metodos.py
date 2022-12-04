@@ -62,26 +62,28 @@ def Tarjan(grafo, aresta):
     return None
 
 #Metodo de Fleury
+#op = qual metodo será usado para identificar ponte, 0 = tarjan e 1 = naive
 def Fleury(grafo, op):
-
-    #Info(grafo)
+    warnings.filterwarnings("ignore")
     #--------------------------------------------------#
     #Verifica se o grafo é eulericano
+
     graus = grafo.degree()
-    for i in graus:
-        if graus[i] % 2 or graus[i] == 1 or len(grafo.clusters()) > 1:
-            print("Grafo sem caminho euleriano\nGrafo com graus impares ou não conexo")
-            return 0
-    print("Grafo euleriano")
     listaVertices = grafo.vs.indices
 
     #Pega lista de arestas
     listaArestas = []
     for e in grafo.es:
         listaArestas.append(e.tuple)
-
+    
+    for i in graus:
+        if not ((i % 2 == 0) and (len(grafo.clusters()) == 1)):
+            print("Grafo sem caminho euleriano (graus impares ou não conexo)")
+            return 0
+    print("Grafo euleriano")
+    Info(grafo)
     if op == 0:
-        print("Identificando ponstes por Tarjan")
+        print("Identificando pontes por Tarjan")
     if op == 1:
         print("Identificando pontes por Naive")
     #--------------------------------------------------#
@@ -103,15 +105,17 @@ def Fleury(grafo, op):
         if  len(qtdn) > 1:
             for k in qtdn:
 
-                if not Tarjan(aux, (vi, k)) and  op == 0:
-                    arestaRetirada = (vi, k)
-                    J = k
-                    break
+                if op == 0:
+                    if not Tarjan(aux, (vi, k)):
+                        arestaRetirada = (vi, k)
+                        J = k
+                        break
 
-                if not Naive(aux, (vi, k)) and op == 1:
-                    arestaRetirada = (vi, k)
-                    J = k
-                    break
+                if op == 1:
+                    if not Naive(aux, (vi, k)):
+                        arestaRetirada = (vi, k)
+                        J = k
+                        break
 
         else:
             J = qtdn[0]
@@ -136,26 +140,44 @@ def Fleury(grafo, op):
 #Criador aleatorio de grafos
 def Aleatorio(nodos):
     random.seed()
-    grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.2, directed=False, loops=True)
+    grafoRand = ig.Graph.Erdos_Renyi(n=nodos, p = 0.9, directed=False, loops=False)
     return grafoRand
 
 
 def TestesRand(tipoPonte):
 
-    grafo =  Aleatorio(100)
-    Info(grafo)
+    grafo =  Aleatorio(10)
     op = 0
+    inicio = time.time() #Inicio da variável de tempo, para comparação
     while op != 1:
-        aux = Fleury(grafo, tipoPonte)
-        if aux == 0:
-            grafo =  Aleatorio(100)
-            op = 0
-        else:
-            print("Tour euleriano", *aux, sep=";")
-            op = 1
+        while True:
+            try:
+                aux = Fleury(grafo, tipoPonte)
+                if aux == 0:
+                    grafo =  Aleatorio(10)
+                    op = 0
+                else:
+                    Info(grafo)
+                    print("Tour euleriano", *aux, sep=";")
+                    op = 1
+                    fim = time.time()
+                    print("%10.3f segundos gastos para procura"%(fim-inicio))
+                    break
+            except KeyboardInterrupt:
+                fim = time.time()
+                print ("%10.3f de busca sem sucesso"%(fim-inicio))
+                op = 0
+                return
+            
+        
+        
+        
+        
+        
+        
 
 
-#print("Tour Euleriano", *Fleury(ImportaArq('fleury.gml'),1), sep = ", ")
+#print("Tour Euleriano", *Fleury(ImportaArq('fleuryN.gml'),1), sep = ", ")
 
 
-#TestesRand(1)
+TestesRand(0)
