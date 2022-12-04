@@ -103,7 +103,7 @@ def Fleury(grafo, op):
         if  len(qtdn) > 1:
             for k in qtdn:
                 if op == 0:
-                    if not Tarjan(aux, (vi, k)) and len(qtdn) > 1:
+                    if not Tarjan(aux, (vi, k)):
                         arestaRetirada = (vi, k)
                         vj = k
                     break
