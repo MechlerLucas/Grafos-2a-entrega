@@ -81,7 +81,6 @@ def Fleury(grafo, op):
             print("Grafo sem caminho euleriano (graus impares ou não conexo)")
             return 0
     print("Grafo euleriano")
-    Info(grafo)
     if op == 0:
         print("Identificando pontes por Tarjan")
     if op == 1:
@@ -170,14 +169,6 @@ def TestesRand(nodos, tipoPonte):
                 return
             
         
-        
-        
-        
-        
-        
-
-
 #print("Tour Euleriano", *Fleury(ImportaArq('fleuryN.gml'),1), sep = ", ")
-
 
 TestesRand(10,0)
